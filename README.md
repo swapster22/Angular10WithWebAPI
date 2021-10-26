@@ -11,10 +11,12 @@ Below are some Screenshots attached of the project.
 
 
 ![G2](https://user-images.githubusercontent.com/44148166/138851736-8f15fd50-6c81-420f-b436-d28076bef4f6.PNG)
+<br>
 2. Modal for Adding a new Employee Data
 
 
 
 
 ![G3](https://user-images.githubusercontent.com/44148166/138851820-b57d03f1-8078-4da6-97c7-226deda1f2e2.PNG)
+<br>
 3. Modal for Updating an existing Employee Data.
