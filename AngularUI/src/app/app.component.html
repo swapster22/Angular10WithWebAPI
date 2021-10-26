@@ -1,0 +1,142 @@
+<div class="container">
+  <h1 style="text-align: center;margin-top: 10px;">Employee Data Management Portal</h1>
+  <button pButton pRipple type="button" (click)="showModalDialog()" style="margin-left: 57em;margin-top:6em;" icon="pi pi-plus" label="Add New Employee" class="p-button-rounded p-button-success"></button>
+</div>
+
+<p-dialog header="Add New Employee Data" [(visible)]="displayModal" [modal]="true" [style]="{width: '50vw'}" [baseZIndex]="10000"
+    [draggable]="false"  [resizable]="true">
+    <div class="p-m-0">
+      <form [formGroup]="EmployeeData" (ngSubmit)="Submit()">
+        <div class="grid" >
+          <div class="col-offset-1">
+            <span class="p-float-label">
+              <input type="text" id="inputtext" pInputText formControlName="EmpName"> 
+              <label for="inputtext">Employee Name</label>
+          </span>
+          </div>
+          <div class="col-offset-1">
+            <span class="p-float-label">
+              <input type="text" id="inputtext" pInputText formControlName="EmpDept"> 
+              <label for="inputtext">Employee Department</label>
+          </span>
+          </div>
+        </div>
+       
+        <div class="grid" style="margin-top: 20px;">
+          <div class="col-offset-1">
+            <span class="p-float-label">
+              <input type="text" id="inputtext" pInputText formControlName="City"> 
+              <label for="inputtext">City</label>
+          </span>
+          </div>
+          <div class="col-offset-1">
+            <span class="p-float-label">
+              <input type="text" id="inputtext" pInputText formControlName="Country"> 
+              <label for="inputtext">Country</label>
+          </span>
+          </div>
+        </div>
+        <div class="grid" style="margin-top: 20px; margin-bottom: 10em;">
+          <div class="col-offset-1">
+            <p-dropdown [options]="designations" formControlName="Designation" editable="true" optionLabel="name" placeholder="Designation"></p-dropdown>
+          </div>
+        </div>
+        <hr>
+        <div class="grid" style="margin-left:32em">
+          <!-- <p-button icon="pi pi-check"  label="Submit" class="p-button-text" ></p-button>&nbsp; -->
+          <button pButton pRipple type="submit" icon="pi pi-check" label="Success" [disabled]="EmployeeData.invalid" class="p-button-rounded p-button-success"></button>&nbsp;
+          <!-- <p-button icon="pi pi-times"  class="p-button-danger" label="Cancel"></p-button> -->
+          <button pButton pRipple type="button" icon="pi pi-times" (click)="displayModal=false" label="Cancel" class="p-button-rounded p-button-danger"></button>
+        </div>
+      </form>
+    </div>
+        
+</p-dialog>
+
+
+<div class="container" style="margin-top: 2em;">
+  <p-table [columns]="cols" [value]="datalist">
+    <ng-template pTemplate="header" let-columns>
+        <tr>
+            <th *ngFor="let col of columns">
+                {{col.header}}
+            </th>
+            <th>Actions</th>
+            <th></th>
+        </tr>
+        
+    </ng-template>
+    <ng-template pTemplate="body" let-rowData let-columns="columns">
+        <tr>
+            <td *ngFor="let col of columns">
+                {{rowData[col.field]}}
+            </td>
+            <td>
+              <button pButton pRipple type="button" icon="pi pi-user-edit" (click)="showModalDialog1(rowData)" label="Edit" class="p-button-rounded p-button-info"></button>
+            </td>
+            <td>
+              <button pButton pRipple type="button" icon="pi pi-times" (click)="Delete(rowData['EmpId'])" label="Delete" class="p-button-rounded p-button-danger"></button>
+            </td>
+        </tr>
+    </ng-template>
+  </p-table>
+</div> 
+
+<p-dialog header="Edit an Employee Data" [(visible)]="displayModal1" [modal]="true" [style]="{width: '50vw'}" [baseZIndex]="10000"
+    [draggable]="false"  [resizable]="true">
+    <div class="p-m-0">
+      <form [formGroup]="EmployeeDataUpdate" (ngSubmit)="Update(EmployeeDataUpdate.value)">
+        <div class="grid" style="margin-top: 20px;">
+          <div class="col-offset-1">
+            <span class="p-float-label">
+              <input type="text" id="inputtext" pInputText formControlName="EmpId" readonly> 
+              <label for="inputtext">Employee Id</label>
+          </span>
+          </div>
+          <div class="col-offset-1">
+            <span class="p-float-label">
+              <input type="text" id="inputtext" pInputText formControlName="EmpName"> 
+              <label for="inputtext">Employee Name</label>
+          </span>
+          </div>
+          
+        </div>
+       
+        <div class="grid" style="margin-top: 20px;">
+          <div class="col-offset-1">
+            <span class="p-float-label">
+              <input type="text" id="inputtext" pInputText formControlName="City"> 
+              <label for="inputtext">City</label>
+          </span>
+          </div>
+          <div class="col-offset-1">
+            <span class="p-float-label">
+              <input type="text" id="inputtext" pInputText formControlName="EmpDept"> 
+              <label for="inputtext">Employee Department</label>
+          </span>
+          </div>
+          
+        </div>
+        <div class="grid" style="margin-top: 20px; margin-bottom: 10em;">
+          <div class="col-offset-1">
+            <span class="p-float-label">
+              <input type="text" id="inputtext" pInputText formControlName="Country"> 
+              <label for="inputtext">Country</label>
+          </span>
+          </div>
+          <div class="col-offset-1">
+            <p-dropdown [options]="designations" formControlName="Designation" editable="true" optionLabel="name" placeholder="Designation"></p-dropdown>
+          </div>
+          
+        </div>
+        <hr>
+        <div class="grid" style="margin-left:32em">
+          <!-- <p-button icon="pi pi-check"  label="Submit" class="p-button-text" ></p-button>&nbsp; -->
+          <button pButton pRipple type="submit" icon="pi pi-check" label="Confirm" class="p-button-rounded p-button-success"></button>&nbsp;
+          <!-- <p-button icon="pi pi-times"  class="p-button-danger" label="Cancel"></p-button> -->
+          <button pButton pRipple type="button" icon="pi pi-times" (click)="displayModal=false" label="Cancel" class="p-button-rounded p-button-danger"></button>
+        </div>
+      </form>
+    </div>
+        
+</p-dialog>
